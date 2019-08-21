@@ -1,0 +1,32 @@
+
+1. gist 에서 InstallCert.Java 를 다운로드
+
+$ curl -O https://gist.githubusercontent.com/lesstif/cd26f57b7cfd2cd55241b20e05b5cd93/raw/InstallCert.java
+
+2. 컴파일
+
+$javac InstallCert.java
+
+
+
+3.InstallCert 구동
+
+java -cp ./ InstallCert api.twitter.com
+
+
+
+다음과 같은 메시지가 나오고 저장됨. keystore 명과 alias 명을 기억해주세요
+
+Added certificate to keystore 'xxxxxx' using alias 'xxxxxx'
+
+
+
+4.keytool 로 keystore에서 인증서 추출 (KeyStore의 암호는 changeit 이라 가정!)
+
+$ keytool -exportcert -keystore xxxxxxx -storepass changeit -file output.cert -alias xxxxxxxx
+
+
+5. 현재 JDK 의 keystore에 cert import
+
+$ keytool -importcert -keystore cacerts -storepass changeit -file output.cert -alias api.twitter.com-1
+

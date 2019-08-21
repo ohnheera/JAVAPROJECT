@@ -36,14 +36,13 @@ public class TWEET {
 		BufferedWriter bw;     
 		try {
 			bw = new BufferedWriter(new FileWriter("Data.txt"));
-			Query query = new Query("japan");
+			Query query = new Query("south korea");
 			QueryResult result = null;
 			result = tw.search(query);
 			for(Status status : result.getTweets()) {
-				bw.write("@"+status.getUser().getScreenName()+"\n"
-						+":"+status.getText()+"\n"
-						+"="+status.getSource()
-						+"#"+"\r\n");
+				bw.write("[Name: "+status.getUser().getScreenName()+"]\n"
+						+"[Text:"+status.getText()+"]\n"
+						+"[Source: "+status.getSource() + "]\n\n");
 			}
 
 			bw.close();

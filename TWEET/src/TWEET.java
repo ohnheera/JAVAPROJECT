@@ -18,8 +18,6 @@ public class TWEET {
 	 * 
 	 */
 	
-	static int qnum = 50; // number of query
-	static String qstring = "south korea"; // content of query
 	
 	static String ConsumerKey = "t3jF99GhzVqo6D1Uf5bYV60Jc";
 	static String ConsumerSecret ="wtB0AwpJ2njcwdBCsQzHlVMfCkXA2zXI5bQHcWVgMQY14UcXuI";
@@ -42,6 +40,8 @@ public class TWEET {
 		return twitter;
 	}
 	public static void main(String[] args) {
+		int qnum = 50; // number of query
+		String qstring = args[0]; // content of query
 		Twitter tw = getT();
 		BufferedWriter bw;     
 		try {
@@ -64,5 +64,6 @@ public class TWEET {
 		} catch (TwitterException e) {
 			e.printStackTrace();
 		}
+		return;
 	}
 }

@@ -1,6 +1,7 @@
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import com.stanford_nlp.SentimentAnalyzer.*;
 
 import twitter4j.Query;
 import twitter4j.QueryResult;
@@ -11,6 +12,15 @@ import twitter4j.TwitterFactory;
 import twitter4j.conf.ConfigurationBuilder;
 
 public class TWEET {
+	/*
+	 * qnum만큼의 쿼리를 받아와 Data.txt에 저장
+	 * qstring에 쿼리 내용 저장
+	 * 
+	 */
+	
+	static int qnum = 50; // number of query
+	static String qstring = "south korea"; // content of query
+	
 	static String ConsumerKey = "t3jF99GhzVqo6D1Uf5bYV60Jc";
 	static String ConsumerSecret ="wtB0AwpJ2njcwdBCsQzHlVMfCkXA2zXI5bQHcWVgMQY14UcXuI";
 	static String AccessToken = "1163348096119529472-YXebuIGwAqWW9h2t29N8V7FSDYyem7";
@@ -35,14 +45,17 @@ public class TWEET {
 		Twitter tw = getT();
 		BufferedWriter bw;     
 		try {
-			bw = new BufferedWriter(new FileWriter("Data.txt"));
-			Query query = new Query("south korea");
+			bw = new BufferedWriter(new FileWriter("Data.txt")); 
+			Query query = new Query(qstring);
+			query.setCount(qnum);
 			QueryResult result = null;
 			result = tw.search(query);
+			
 			for(Status status : result.getTweets()) {
-				bw.write("[Name: "+status.getUser().getScreenName()+"]\n"
-						+"[Text:"+status.getText()+"]\n"
-						+"[Source: "+status.getSource() + "]\n\n");
+				MainApp sentiment = new MainApp();
+				bw.write("--------------------------------------------------------------------");
+				bw.write(status.getText() +"   ->   ");
+				bw.write(MainApp.main(status.getText()) +"\n");
 			}
 
 			bw.close();
